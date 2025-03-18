@@ -22,20 +22,15 @@ scaler = StandardScaler().fit(X)
 def home():
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if request.is_json:
-        data = request.get_json()
-        data = [float(data[key]) for key in data]
-    else:
-        data = [float(x) for x in request.form.values()]
+@app.route('/api/predict', methods=['POST'])
+def predict_api():
+    data = request.get_json(force=True)
+    data = [data[feature] for feature in ["Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"]]
     data = np.array(data).reshape(1, -1)
     data = scaler.transform(data)
     prediction = model.predict(data)
     output = "Positive" if prediction[0][0] > 0.5 else "Negative"
-    if request.is_json:
-        return jsonify(prediction_text=f'Diabetes Prediction: {output}')
-    return render_template('index.html', prediction_text=f'Diabetes Prediction: {output}')
+    return jsonify(prediction_text=f'Diabetes Prediction: {output}')
 
 if __name__ == "__main__":
     app.run(debug=True)

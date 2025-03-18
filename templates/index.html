@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Diabetes Prediction</h1>
-        <form>
+        <form id="prediction-form">
             <label for="Pregnancies">Pregnancies:</label>
             <input type="number" id="Pregnancies" name="Pregnancies" required>
             <label for="Glucose">Glucose:</label>
@@ -28,12 +28,32 @@
             <input type="number" id="Age" name="Age" required>
             <button type="submit">Predict</button>
         </form>
-        <div class="prediction">
-            {% if prediction_text %}
-                <h2>{{ prediction_text }}</h2>
-            {% endif %}
-        </div>
+        <div class="prediction" id="prediction-result"></div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch('/api/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('prediction-result').innerText = result.prediction_text;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
