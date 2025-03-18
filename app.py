@@ -24,12 +24,18 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = [float(x) for x in request.form.values()]
+    if request.is_json:
+        data = request.get_json()
+        data = [float(data[key]) for key in data]
+    else:
+        data = [float(x) for x in request.form.values()]
     data = np.array(data).reshape(1, -1)
     data = scaler.transform(data)
     prediction = model.predict(data)
-    output = int(prediction[0][0] > 0.5)
-    return render_template('index.html', prediction_text=f'Diabetes Prediction: {"Positive" if output else "Negative"}')
+    output = "Positive" if prediction[0][0] > 0.5 else "Negative"
+    if request.is_json:
+        return jsonify(prediction_text=f'Diabetes Prediction: {output}')
+    return render_template('index.html', prediction_text=f'Diabetes Prediction: {output}')
 
 if __name__ == "__main__":
     app.run(debug=True)

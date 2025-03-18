@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Diabetes Prediction</h1>
-        <form action="/predict" method="post">
+        <form>
             <label for="Pregnancies">Pregnancies:</label>
-            <input type="number" id="Pregnancies" name="Pregnancies" required><br><br>
+            <input type="number" id="Pregnancies" name="Pregnancies" required>
             <label for="Glucose">Glucose:</label>
-            <input type="number" id="Glucose" name="Glucose" required><br><br>
+            <input type="number" id="Glucose" name="Glucose" required>
             <label for="BloodPressure">BloodPressure:</label>
-            <input type="number" id="BloodPressure" name="BloodPressure" required><br><br>
+            <input type="number" id="BloodPressure" name="BloodPressure" required>
             <label for="SkinThickness">SkinThickness:</label>
-            <input type="number" id="SkinThickness" name="SkinThickness" required><br><br>
+            <input type="number" id="SkinThickness" name="SkinThickness" required>
             <label for="Insulin">Insulin:</label>
-            <input type="number" id="Insulin" name="Insulin" required><br><br>
+            <input type="number" id="Insulin" name="Insulin" required>
             <label for="BMI">BMI:</label>
-            <input type="number" id="BMI" name="BMI" step="0.1" required><br><br>
+            <input type="number" id="BMI" name="BMI" step="0.1" required>
             <label for="DiabetesPedigreeFunction">DiabetesPedigreeFunction:</label>
-            <input type="number" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" step="0.01" required><br><br>
+            <input type="number" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" step="0.01" required>
             <label for="Age">Age:</label>
-            <input type="number" id="Age" name="Age" required><br><br>
+            <input type="number" id="Age" name="Age" required>
             <button type="submit">Predict</button>
         </form>
-        {% if prediction_text %}
-            <h2>{{ prediction_text }}</h2>
-        {% endif %}
+        <div class="prediction">
+            {% if prediction_text %}
+                <h2>{{ prediction_text }}</h2>
+            {% endif %}
+        </div>
     </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
