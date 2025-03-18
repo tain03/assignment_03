@@ -105,32 +105,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ### Contact
 
-If you have any questions or issues, please feel free to open an issue in the repository or contact the author at [your-email@example.com].
+If you have any questions or issues, please feel free to open an issue in the repository or contact the author at [ductai01102003@gmail.com].
 
-## Pushing Changes to GitHub
-
-1. **Check the status of your changes**:
-
-    ```bash
-    git status
-    ```
-
-2. **Add the changes to the staging area**:
-
-    ```bash
-    git add .
-    ```
-
-3. **Commit the changes**:
-
-    ```bash
-    git commit -m "Initial commit"
-    ```
-
-4. **Push the changes to GitHub**:
-
-    ```bash
-    git push origin main
-    ```
-
-Make sure to replace placeholders such as `your-email@example.com` with your actual contact email. Additionally, if the repository URL or other details change, update the `README.md` file accordingly.
